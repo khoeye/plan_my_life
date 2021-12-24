@@ -1,0 +1,29 @@
+
+nav {
+    background-color: #F7C59F;
+    border-color: #F7C59F;
+    height: 4.25rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    display: flex;
+  }
+  
+  .logo {
+    background-color:transparent;
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin: 0 0 0 1.5rem ;
+  }
+
+  
+  .logo img {
+    background-color: #F7C59F;
+    height: 6rem;
+    width: 6rem;
+    padding: .5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    margin: 0;
+  }
+  
+  .logo_text{
+    font-size: 1.25rem;
+  }
+  

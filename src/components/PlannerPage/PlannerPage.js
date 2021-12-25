@@ -50,40 +50,82 @@ const testEventData = {
     linkForEvent: "https://www.bungie.net/"
 }
 const mondayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st);
+    } 
+}
+
+const tuesdayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
     return parseInt(et)-parseInt(st); 
+    }
 }
 
-const tuesdayTime = () =>{
-    return testEventData.timeFrame.tuesdayEnd-testEventData.timeFrame.tuesdayStart; 
+const wednesdayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st);
+    } 
 }
 
-const wednesdayTime = () =>{
-    return testEventData.timeFrame.wednesdayEnd-testEventData.timeFrame.wednesdayStart; 
+const thursdayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st);
+    } 
 }
 
-const thursdayTime = () =>{
-    return testEventData.timeFrame.wednesdayEnd-testEventData.timeFrame.wednesdayStart; 
+const fridayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st);
+    } 
 }
 
-const fridayTime = () =>{
-    return testEventData.timeFrame.fridayEnd-testEventData.timeFrame.fridayStart; 
+const saturdayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st); 
+    }
 }
 
-const saturdayTime = () =>{
-    return testEventData.timeFrame.saturdayEnd-testEventData.timeFrame.saturdayStart; 
-}
-
-const sundayTime = () =>{
-    return testEventData.timeFrame.sundayEnd-testEventData.timeFrame.sundayStart; 
+const sundayTime = (et,st) =>{
+    if (et==="" && st===""){
+        return 0
+    } else {
+    return parseInt(et)-parseInt(st); 
+    }
 }
 
 
 const weeklyTimeCreation = () =>{
+    return (
+    testEventData.hoursRequired / (
+    mondayTime(testEventData.timeFrame.mondayEnd,testEventData.timeFrame.mondayStart) +
+    tuesdayTime(testEventData.timeFrame.tuesdayEnd,testEventData.timeFrame.tuesdayStart)+
+    wednesdayTime(testEventData.timeFrame.wednesdayEnd,testEventData.timeFrame.wednesdayStart)+
+    thursdayTime(testEventData.timeFrame.thursdayEnd,testEventData.timeFrame.thursdayStart)+
+    fridayTime(testEventData.timeFrame.fridayEnd,testEventData.timeFrame.fridayStart)+
+    saturdayTime(testEventData.timeFrame.saturdayEnd,testEventData.timeFrame.saturdayStart)+
+    sundayTime(testEventData.timeFrame.sundayEnd,testEventData.timeFrame.sundayStart)
+        )
+    )
+
 
 }
 
 const consoleLog = () =>{
     console.log(mondayTime(testEventData.timeFrame.mondayEnd,testEventData.timeFrame.mondayStart))
+    console.log(thursdayTime(testEventData.timeFrame.thursdayEnd,testEventData.timeFrame.thursdayStart))
+    console.log(weeklyTimeCreation())
 }
 
 

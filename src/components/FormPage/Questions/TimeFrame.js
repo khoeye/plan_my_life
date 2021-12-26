@@ -16,7 +16,7 @@ const TimeFrame = (props) =>{
         setTimeInput((prevState)=>{
             return{
                 ...prevState,
-                mondayStart: event.target.value,
+                startTime.mondayStart: event.target.value,
             };    
         });
     };

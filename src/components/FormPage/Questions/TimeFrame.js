@@ -4,6 +4,8 @@ import React, {useState, useEffect} from "react";
 const TimeFrame = (props) =>{
 
     const [timeInput, setTimeInput] = useState({
+        startTimes: [],
+        endTimes:[]
     })
 
     useEffect(() => {
@@ -16,7 +18,7 @@ const TimeFrame = (props) =>{
         setTimeInput((prevState)=>{
             return{
                 ...prevState,
-                startTime.mondayStart: event.target.value,
+                mondayStart: event.target.value,
             };    
         });
     };

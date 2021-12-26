@@ -9,6 +9,7 @@ import WhatDays from "../Questions/WhatDays";
 import TimeFrame from "../Questions/TimeFrame";
 import LinkForEvent from "../Questions/LinkForEvent";
 import Submit from "../Questions/Submit";
+import StartDate from "../Questions/StartDate";
 
 function QBank(props) {
 
@@ -91,6 +92,14 @@ function QBank(props) {
     });
 };
 
+  const saveStartDateHandler = (enteredStartDate) =>{
+    setUserData((prevState)=>{
+    return {
+        ...prevState,
+        startDate: enteredStartDate
+    };
+  });
+  };
 
 //Delete with test button on this file
 const consoleTest = () =>{
@@ -109,6 +118,9 @@ const consoleTest = () =>{
           </Carousel.Item>
           <Carousel.Item className="formSlide">
             <HoursRequired onSaveHoursRequired={saveHoursRequiredHandler}/>
+          </Carousel.Item>
+          <Carousel.Item>
+            <StartDate onSaveStartDate={saveStartDateHandler}/>
           </Carousel.Item>
           <Carousel.Item className="formSlide">
             <WhatDays onSaveWhatDays={saveWhatDaysHandler} />

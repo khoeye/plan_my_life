@@ -105,7 +105,7 @@ const sundayTime = (et,st) =>{
     }
 }
 
-
+//Get the total hours spent in a week
 const weeklyTimeCreation = () =>{
     return (
     testEventData.hoursRequired / (
@@ -118,14 +118,44 @@ const weeklyTimeCreation = () =>{
     sundayTime(testEventData.timeFrame.sundayEnd,testEventData.timeFrame.sundayStart)
         )
     )
+}
 
+//Templates for google calendar object to be passed in array 
+let eventTemplateObject = {
+    Subject: '', 
+    StartDate: '', 
+    StartTime:'', 
+    EndDate:'', 
+    EndTime:'', 
+    AllDayEvent:'', 
+    Description:'', 
+    Location:'', 
+    Private:'', };
 
+//Check how many days were selected by user and return count
+const daysSelected = () =>{
+    let getTimeArr = Object.values(testEventData.whatDays)
+    return getTimeArr.filter(x => x ===true ).length
+}
+
+const calendarGeneration = () =>{
+    let userInputArr = []
+    if(Number.isInteger(weeklyTimeCreation())){
+        for (let i = 1; i <= (weeklyTimeCreation()*daysSelected()); i++) {
+            userInputArr.push(eventTemplateObject)
+        }
+        return userInputArr
+    } else { 
+
+    }
 }
 
 const consoleLog = () =>{
     console.log(mondayTime(testEventData.timeFrame.mondayEnd,testEventData.timeFrame.mondayStart))
     console.log(thursdayTime(testEventData.timeFrame.thursdayEnd,testEventData.timeFrame.thursdayStart))
-    console.log(weeklyTimeCreation())
+    console.log(calendarGeneration())
+    console.log(daysSelected())
+
 }
 
 

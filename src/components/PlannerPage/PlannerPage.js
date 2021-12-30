@@ -24,28 +24,32 @@ const testEventData = {
     hoursRequired: "100",
     whatDays: {
         checkedStatusMonday: true,
-        checkedStatusTuesday: "",
+        checkedStatusTuesday: false,
         checkedStatusWednesday: true,
-        checkedStatusThursday: "",
+        checkedStatusThursday: false,
         checkedStatusFriday: true,
         checkedStatusSaturday: true,
-        checkedStatusSunday: ""
+        checkedStatusSunday: false
     },
-    timeFrame: {
-        mondayStart: "18:00",
-        mondayEnd: "20:00",
-        tuesdayStart: "",
-        tuesdayEnd: "",
-        wednesdayStart: "20:00",
-        wednesdayEnd: "22:00",
-        thursdayStart: "",
-        thursdayEnd: "",
-        fridayStart: "20:00",
-        fridayEnd: "22:00",
-        saturdayStart: "18:00",
-        saturdayEnd: "22:00",
-        sundayStart: "",
-        sundayEnd: ""
+    timeFrame: {        
+        startTimes:{
+            sundayStart: "",
+            mondayStart: "16:00",
+            tuesdayStart: "",
+            wednesdayStart: "14:00",
+            thursdayStart: "",
+            fridayStart: "17:00",
+            saturdayStart:"13:00"
+        },
+        endTimes:{
+            sundayEnd: "",
+            mondayEnd: "17:00",
+            tuesdayEnd: "",
+            wednesdayEnd: "15:00",
+            thursdayEnd: "",
+            fridayEnd: "18:00",           
+            saturdayEnd:"15:00"
+            }
     },
     linkForEvent: "https://www.bungie.net/"
 }
@@ -105,18 +109,19 @@ const sundayTime = (et,st) =>{
     }
 }
 
-//Get the total hours spent in a week
+//Get the total hours spent in a week and divide by the hours required for completion. Output is how many weeks the project will take
 const weeklyTimeCreation = () =>{
     return (
-    testEventData.hoursRequired / (
-    mondayTime(testEventData.timeFrame.mondayEnd,testEventData.timeFrame.mondayStart) +
-    tuesdayTime(testEventData.timeFrame.tuesdayEnd,testEventData.timeFrame.tuesdayStart)+
-    wednesdayTime(testEventData.timeFrame.wednesdayEnd,testEventData.timeFrame.wednesdayStart)+
-    thursdayTime(testEventData.timeFrame.thursdayEnd,testEventData.timeFrame.thursdayStart)+
-    fridayTime(testEventData.timeFrame.fridayEnd,testEventData.timeFrame.fridayStart)+
-    saturdayTime(testEventData.timeFrame.saturdayEnd,testEventData.timeFrame.saturdayStart)+
-    sundayTime(testEventData.timeFrame.sundayEnd,testEventData.timeFrame.sundayStart)
-        )
+        testEventData.hoursRequired /  
+        (
+    sundayTime(testEventData.timeFrame.endTimes.sundayEnd,testEventData.timeFrame.startTimes.sundayStart)+
+    mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart)+
+    tuesdayTime(testEventData.timeFrame.endTimes.tuesdayEnd,testEventData.timeFrame.startTimes.tuesdayStart)+
+    wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart)+
+    thursdayTime(testEventData.timeFrame.endTimes.thursdayEnd,testEventData.timeFrame.startTimes.thursdayStart)+
+    fridayTime(testEventData.timeFrame.endTimes.fridayEnd,testEventData.timeFrame.startTimes.fridayStart)+
+    saturdayTime(testEventData.timeFrame.endTimes.saturdayEnd,testEventData.timeFrame.startTimes.saturdayStart)
+   )
     )
 }
 
@@ -132,29 +137,178 @@ let eventTemplateObject = {
     Location:'', 
     Private:'', };
 
-//Check how many days were selected by user and return count
-const daysSelected = () =>{
-    let getTimeArr = Object.values(testEventData.whatDays)
-    return getTimeArr.filter(x => x ===true ).length
+
+//Generate an array with the events for a week that a user selects
+const weeklyEventArrayCreator = () => {
+    let weeklyEventArrayRaw = [
+        sundayObjectCreator(),
+        mondayObjectCreator(),
+        tuesdayObjectCreator(),
+        wednesdayObjectCreator(),
+        thursdayObjectCreator(),
+        fridayObjectCreator(),
+        saturdayObjectCreator()
+    ]
+    let weeklyEventArray = weeklyEventArrayRaw.filter(function(x){
+        return x !== null; 
+    });
+    return (weeklyEventArray)
 }
 
-const calendarGeneration = () =>{
-    let userInputArr = []
-    if(Number.isInteger(weeklyTimeCreation())){
-        for (let i = 1; i <= (weeklyTimeCreation()*daysSelected()); i++) {
-            userInputArr.push(eventTemplateObject)
-        }
-        return userInputArr
-    } else { 
-
+//Creator functions to move th user's data into the object templat required for gmail events
+const sundayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusSunday === false) {
+        return null
+    }else{
+        let sundayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.sundayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.sundayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (sundayObj)
     }
 }
 
+const mondayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusMonday === false) {
+        return null
+    }else{
+        let mondayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.mondayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.mondayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (mondayObj)
+    }
+}
+const tuesdayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusTuesday === false) {
+        return null
+    }else{
+        let tuesdayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.tuesdayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.tuesdayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (tuesdayObj)
+    }
+}
+
+const wednesdayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusWednesday === false) {
+        return null
+    }else{
+        let wednesdayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.wednesdayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.wednesdayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (wednesdayObj)
+    }
+}
+
+const thursdayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusThursday === false) {
+        return null
+    }else{
+        let thursdayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.thursdayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.thursdayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (thursdayObj)
+    }
+}
+
+const fridayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusFriday === false) {
+        return null
+    }else{
+        let fridayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.fridayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.fridayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (fridayObj)
+    }
+}
+
+const saturdayObjectCreator = () =>{
+    if (testEventData.whatDays.checkedStatusSaturday === false) {
+        return null
+    }else{
+        let saturdayObj={
+            Subject: testEventData.eventName, 
+            StartDate: '', 
+            StartTime: testEventData.timeFrame.startTimes.saturdayStart, 
+            EndDate: '', 
+            EndTime: testEventData.timeFrame.endTimes.saturdayEnd, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', };
+            return (saturdayObj)
+    }
+}
+
+//This function duplicates the weekly array to match closely with whats required to complete the task
+const dupWeeklyArray = (arr, times) =>{
+    Array(times)
+        .fill([...arr])
+        .reduce((a, b) => a.concat(b));
+};
+
+//
+
+
+// const calendarGeneration = () =>{
+//     let userInputArr = []
+//     if(Number.isInteger(weeklyTimeCreation())){
+//         for (let i = 1; i <= (weeklyTimeCreation()*daysSelected()); i++) {
+//             userInputArr.push(eventTemplateObject)
+//         }
+//         return userInputArr
+//     } else { 
+//     }
+// }
+
 const consoleLog = () =>{
-    console.log(mondayTime(testEventData.timeFrame.mondayEnd,testEventData.timeFrame.mondayStart))
-    console.log(thursdayTime(testEventData.timeFrame.thursdayEnd,testEventData.timeFrame.thursdayStart))
-    console.log(calendarGeneration())
-    console.log(daysSelected())
+    console.log(mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart))
+    console.log(wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart))
+    console.log(weeklyTimeCreation())
+    console.log(weeklyEventArrayCreator())
+    console.log(dupWeeklyArray(weeklyEventArrayCreator(),weeklyTimeCreation()))
+
 
 }
 

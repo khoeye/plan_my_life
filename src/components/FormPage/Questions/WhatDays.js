@@ -4,7 +4,13 @@ const WhatDays = (props) =>{
 
     //Set states of Checked item
     const [checkInput, setCheckInput] = useState({
-
+        checkedStatusMonday: false,
+        checkedStatusTuesday: false,
+        checkedStatusWednesday: false,
+        checkedStatusThursday: false,
+        checkedStatusFriday: false,
+        checkedStatusSaturday: false,
+        checkedStatusSunday: false
     })
 
     //This monitors for state changes and returns the state values to the parent

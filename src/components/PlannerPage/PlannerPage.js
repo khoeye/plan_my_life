@@ -23,13 +23,13 @@ const testEventData = {
     eventName: "Test Event Name",
     hoursRequired: "100",
     whatDays: {
+        checkedStatusSunday: false,
         checkedStatusMonday: true,
         checkedStatusTuesday: false,
         checkedStatusWednesday: true,
         checkedStatusThursday: false,
         checkedStatusFriday: true,
-        checkedStatusSaturday: true,
-        checkedStatusSunday: false
+        checkedStatusSaturday: true
     },
     timeFrame: {        
         startTimes:{
@@ -51,7 +51,8 @@ const testEventData = {
             saturdayEnd:"15:00"
             }
     },
-    linkForEvent: "https://www.bungie.net/"
+    linkForEvent: "https://www.bungie.net/",
+    startDate: "2022-01-03"
 }
 const mondayTime = (et,st) =>{
     if (et==="" && st===""){
@@ -281,15 +282,236 @@ const saturdayObjectCreator = () =>{
     }
 }
 
-//This function duplicates the weekly array to match closely with whats required to complete the task
+//This function duplicates the weekly array to match closely with whats required to complete the task. I say closely because it may still be afew days off
 const dupWeeklyArray = (arr, times) =>{
     Array(times)
         .fill([...arr])
         .reduce((a, b) => a.concat(b));
 };
 
-//
+//This function will be to contsruct the array that will hold the dates for each event
 
+// This assigns a number (base 1) to a counter variable based on the users selection. This will be used to determin the range between the days entered.
+let sundayCounter = ''
+const sundayAssign = () => {
+    if (testEventData.whatDays.checkedStatusSunday === false) {
+        return sundayCounter = 0 
+    } else {
+        return sundayCounter = 1
+    }
+}
+
+let mondayCounter = ''
+const mondayAssign = () => {
+    if (testEventData.whatDays.checkedStatusMonday === false) {
+        return mondayCounter = 0 
+    } else {
+        return mondayCounter = 2
+    }
+}
+
+let tuesdayCounter = ''
+const tuesdayAssign = () => {
+    if (testEventData.whatDays.checkedStatusTuesday === false) {
+        return tuesdayCounter = 0 
+    } else {
+        return tuesdayCounter = 3
+    }
+}
+
+let wednesdayCounter = ''
+const wednesdayAssign = () => {
+    if (testEventData.whatDays.checkedStatusWednesday === false) {
+        return wednesdayCounter = 0 
+    } else {
+        return wednesdayCounter = 4
+    }
+}
+
+let thursdayCounter = ''
+const thursdayAssign = () => {
+    if (testEventData.whatDays.checkedStatusThursday === false) {
+        return thursdayCounter = 0 
+    } else {
+        return thursdayCounter = 5
+    }
+}
+
+let fridayCounter = ''
+const fridayAssign = () => {
+    if (testEventData.whatDays.checkedStatusFriday === false) {
+        return fridayCounter = 0 
+    } else {
+        return fridayCounter = 6
+    }
+}
+
+let saturdayCounter = ''
+const saturdayAssign = () => {
+    if (testEventData.whatDays.checkedStatusSaturday === false) {
+        return saturdayCounter = 0 
+    } else {
+        return saturdayCounter = 7
+    }
+}
+
+const getAllCounters = () => {
+    sundayAssign()
+    mondayAssign()
+    tuesdayAssign()
+    wednesdayAssign()
+    thursdayAssign()
+    fridayAssign()
+    saturdayAssign()
+}
+
+
+
+const getDifMonday = () => {
+    if (mondayCounter===0) {
+        return 0
+    } else if (mondayCounter-sundayCounter === 1){
+        return 1
+    } else {
+        return 0
+    }
+}
+
+const getDifTuesday = () => {
+    if (tuesdayCounter===0) {
+        return 0
+    } else if (tuesdayCounter-mondayCounter === 1){
+        return 1
+    } else if (tuesdayCounter-sundayCounter === 2){
+        return 2
+    } else {
+        return 0
+    }
+}
+
+const getDifWednesday = () => {
+    if (wednesdayCounter ===0){
+        return 0
+    } else if (wednesdayCounter-tuesdayCounter===1){
+        return 1
+    } else if (wednesdayCounter-mondayCounter===2){
+        return 2 
+    } else if (wednesdayCounter-sundayCounter===3){
+        return 3
+    } else {
+        return 0
+    }
+}
+
+const getDifThursday = () =>{
+    if (thursdayCounter===0) {
+        return 0
+    } else if (thursdayCounter-wednesdayCounter===1){
+        return 1
+    } else if (thursdayCounter-tuesdayCounter===2){
+        return 2
+    } else if (thursdayCounter-mondayCounter===3){
+        return 3
+    } else if (thursdayCounter-sundayCounter===4){
+        return 4
+    } else {
+        return 0
+    }
+}
+
+const getDifFriday = () =>{
+    if (fridayCounter===0){
+        return 0
+    } else if (fridayCounter-thursdayCounter===1){
+        return 1
+    } else if (fridayCounter-wednesdayCounter===2){
+        return 2
+    } else if (fridayCounter-tuesdayCounter===3){
+        return 3
+    } else if (fridayCounter-mondayCounter===4){
+        return 4
+    } else if (fridayCounter-sundayCounter===5){
+        return 5
+    } else {
+        return 0
+    }
+}
+
+const getDifSaturday = () =>{
+    if (saturdayCounter===0){
+        return 0
+    } else if (saturdayCounter-fridayCounter===1){
+        return 1
+    }  else if (saturdayCounter-thursdayCounter===2){
+        return 2
+    } else if (saturdayCounter-wednesdayCounter===3){
+        return 3
+    } else if (saturdayCounter-tuesdayCounter===4){
+        return 4
+    } else if (saturdayCounter-mondayCounter===5){
+        return 5
+    } else if (saturdayCounter-sundayCounter===6){
+        return 6
+    } else {
+        return 0
+    }
+}
+
+const getFirstDay = () => {
+    if (testEventData.whatDays.checkedStatusSunday===true){
+        return 8
+    } else if (testEventData.whatDays.checkedStatusMonday===true){
+        return 9
+    } else if (testEventData.whatDays.checkedStatusTuesday===true){
+        return 10
+    } else if (testEventData.whatDays.checkedStatusWednesday===true){
+        return 11
+    } else if (testEventData.whatDays.checkedStatusThursday===true){
+        return 12
+    } else if (testEventData.whatDays.checkedStatusFriday===true){
+        return 13
+    } else if (testEventData.whatDays.checkedStatusSaturday===true){
+        return 14
+    }
+}
+
+const getLastDay = () => {
+    if (testEventData.whatDays.checkedStatusSaturday===true){
+        return 7
+    } else if (testEventData.whatDays.checkedStatusFriday===true){
+        return 6
+    } else if (testEventData.whatDays.checkedStatusThursday===true){
+        return 5
+    } else if (testEventData.whatDays.checkedStatusWednesday===true){
+        return 4
+    } else if (testEventData.whatDays.checkedStatusTuesday===true){
+        return 3
+    } else if (testEventData.whatDays.checkedStatusMonday===true){
+        return 2
+    } else if (testEventData.whatDays.checkedStatusSunday===true){
+        return 1
+    }
+}
+
+//This consturct an array of how many days to move forward from each date
+const getDifForWeek = () =>{
+    getAllCounters();
+    let weekDifArr = [];
+ 
+    return weekDifArr = [
+        getDifMonday(),
+        getDifTuesday(),
+        getDifWednesday(),
+        getDifThursday(),
+        getDifFriday(),
+        getDifSaturday(),
+        (getLastDay()-getFirstDay())
+   
+    ];
+//    const filter = weekDifArr.filter(function(number){
+//         return number > 0
+//     })
+}
 
 // const calendarGeneration = () =>{
 //     let userInputArr = []
@@ -303,11 +525,9 @@ const dupWeeklyArray = (arr, times) =>{
 // }
 
 const consoleLog = () =>{
-    console.log(mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart))
-    console.log(wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart))
-    console.log(weeklyTimeCreation())
-    console.log(weeklyEventArrayCreator())
-    console.log(dupWeeklyArray(weeklyEventArrayCreator(),weeklyTimeCreation()))
+    console.log(sundayAssign())
+    console.log(getDifForWeek())
+    
 
 
 }

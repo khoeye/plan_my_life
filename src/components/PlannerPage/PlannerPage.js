@@ -283,14 +283,20 @@ const saturdayObjectCreator = () =>{
 }
 
 //This function duplicates the weekly array to match closely with whats required to complete the task. I say closely because it may still be afew days off
-const dupWeeklyArray = (arr, times) =>{
-    Array(times)
-        .fill([...arr])
-        .reduce((a, b) => a.concat(b));
-};
+const dupeArray = (arr, times) => [].concat(...Array.from({
+    length: times
+ }, () => arr));
+
+
 
 //This function will be to contsruct the array that will hold the dates for each event
 
+//First we give each week a counter
+//Second we use the counter to find the days of difference between each date
+//Third we find how many days to skip to go from the end of one week to the begining of the next
+//Fourth we use these numbers to run a loop that generates events for the user based on what they inputed
+
+//First
 // This assigns a number (base 1) to a counter variable based on the users selection. This will be used to determin the range between the days entered.
 let sundayCounter = ''
 const sundayAssign = () => {
@@ -355,6 +361,7 @@ const saturdayAssign = () => {
     }
 }
 
+//Function to run all of them at once
 const getAllCounters = () => {
     sundayAssign()
     mondayAssign()
@@ -366,6 +373,10 @@ const getAllCounters = () => {
 }
 
 
+//Second
+const getDifSunday = () => {
+    return 0
+}
 
 const getDifMonday = () => {
     if (mondayCounter===0) {
@@ -493,19 +504,36 @@ const getLastDay = () => {
     }
 }
 
+//Get difference between first day and last day 
+const getFisrtLastDif = (first, last) =>{  
+    const date1 = new Date(`08/${last}/2021`);
+    const date2 = new Date(`08/${first}/2021`);
+    
+    // To calculate the time difference of two dates
+    const Difference_In_Time = date2.getTime() - date1.getTime();
+    
+    // To calculate the no. of days between two dates
+    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days
+}
+
+
+//Third
 //This consturct an array of how many days to move forward from each date
 const getDifForWeek = () =>{
     getAllCounters();
     let weekDifArr = [];
  
     return weekDifArr = [
+        getDifSunday(),
         getDifMonday(),
         getDifTuesday(),
         getDifWednesday(),
         getDifThursday(),
         getDifFriday(),
         getDifSaturday(),
-        (getLastDay()-getFirstDay())
+        (getFisrtLastDif(getFirstDay(),getLastDay()))
    
     ];
 //    const filter = weekDifArr.filter(function(number){
@@ -513,6 +541,39 @@ const getDifForWeek = () =>{
 //     })
 }
 
+//Four
+//Convert users start date to someting useful in JS
+const dayTransform = (date) =>{
+    const x = Date.parse(date)
+    const y = new Date(x)
+    //Parsing is always one day off for some reason so added this to fix it
+    const z = new Date(y.setDate(y.getDate()+1))
+    return z
+}
+
+//StartDay we pass the transformed start date given by the user
+//arr we pass the weekly dif array created so we now how many days to add
+const generateFirstEventArr = (startDay,arr) =>{
+    let eventArr = [];
+    let firstArr = arr.filter(x=>x>0)
+    // Add first week depending on when the user selects as the start date
+    for (let i=0; i < firstArr.length; i++) 
+       
+    eventArr.push(new Date(startDay.setDate(startDay.getDate()+firstArr[i])))
+
+        return eventArr
+    
+}
+
+const generateEventArr = (week,startDate,startDif,fullDif) =>{
+    let difFull = dupeArray(fullDif.filter(x=>x>0),week)
+
+    for (let i=0; i < difFull.length; i++)
+    startDif.push(new Date(startDate.setDate(startDate.getDate()+difFull[i])))
+    return startDif
+    // firstDif.push(new Date(firstDif.reverse()[1].setDate(firstDif.reverse()[1].getDate()+firstDif.filter(x=>x>0)))
+    // return eventArr
+}
 // const calendarGeneration = () =>{
 //     let userInputArr = []
 //     if(Number.isInteger(weeklyTimeCreation())){
@@ -523,12 +584,10 @@ const getDifForWeek = () =>{
 //     } else { 
 //     }
 // }
-
+const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
 const consoleLog = () =>{
-    console.log(sundayAssign())
-    console.log(getDifForWeek())
-    
-
+console.log(dayTransform(testEventData.startDate))
+console.log(generateEventArr(weeklyTimeCreation()-1,difForFirstWeek.reverse()[0],difForFirstWeek,(getDifForWeek().filter(x=>x>0))))
 
 }
 

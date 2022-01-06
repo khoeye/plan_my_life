@@ -119,7 +119,7 @@ const consoleTest = () =>{
           <Carousel.Item className="formSlide">
             <HoursRequired onSaveHoursRequired={saveHoursRequiredHandler}/>
           </Carousel.Item>
-          <Carousel.Item>
+          <Carousel.Item className="formSlide">
             <StartDate onSaveStartDate={saveStartDateHandler}/>
           </Carousel.Item>
           <Carousel.Item className="formSlide">

@@ -587,7 +587,7 @@ const generateEventArr = (week,startDate,startDif,fullDif) =>{
 const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
 const consoleLog = () =>{
 console.log(dayTransform(testEventData.startDate))
-console.log(generateEventArr(weeklyTimeCreation()-1,difForFirstWeek.reverse()[0],difForFirstWeek,(getDifForWeek().filter(x=>x>0))))
+console.log(generateEventArr(weeklyTimeCreation()-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
 
 }
 

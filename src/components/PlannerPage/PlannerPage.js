@@ -126,6 +126,30 @@ const weeklyTimeCreation = () =>{
     )
 }
 
+//This function returns the amount of working days the user will need to put in to complete the task. It is still linked to the week function shown above
+const daysRequired = () =>{
+    const a = dupeArray([
+    sundayTime(testEventData.timeFrame.endTimes.sundayEnd,testEventData.timeFrame.startTimes.sundayStart),
+    mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart),
+    tuesdayTime(testEventData.timeFrame.endTimes.tuesdayEnd,testEventData.timeFrame.startTimes.tuesdayStart),
+    wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart),
+    thursdayTime(testEventData.timeFrame.endTimes.thursdayEnd,testEventData.timeFrame.startTimes.thursdayStart),
+    fridayTime(testEventData.timeFrame.endTimes.fridayEnd,testEventData.timeFrame.startTimes.fridayStart),
+    saturdayTime(testEventData.timeFrame.endTimes.saturdayEnd,testEventData.timeFrame.startTimes.saturdayStart)
+    ].filter(x=>x>0),Math.ceil(weeklyTimeCreation()));
+    
+
+    let j = 0
+    let count = 0
+    for(let i=0; i<=testEventData.hoursRequired; j++) {
+        i = i + a[j]
+        count++
+      }
+    return count
+
+
+}
+
 //Templates for google calendar object to be passed in array 
 let eventTemplateObject = {
     Subject: '', 
@@ -565,10 +589,11 @@ const generateFirstEventArr = (startDay,arr) =>{
     
 }
 
-const generateEventArr = (week,startDate,startDif,fullDif) =>{
+const generateEventArr = (days,week,startDate,startDif,fullDif) =>{
+    let remainderDay = days-startDif.length
     let difFull = dupeArray(fullDif.filter(x=>x>0),week)
 
-    for (let i=0; i < difFull.length; i++)
+    for (let i=0; i < remainderDay; i++)
     startDif.push(new Date(startDate.setDate(startDate.getDate()+difFull[i])))
     return startDif
     // firstDif.push(new Date(firstDif.reverse()[1].setDate(firstDif.reverse()[1].getDate()+firstDif.filter(x=>x>0)))
@@ -587,8 +612,9 @@ const generateEventArr = (week,startDate,startDif,fullDif) =>{
 const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
 const consoleLog = () =>{
 console.log(dayTransform(testEventData.startDate))
-console.log(generateEventArr(weeklyTimeCreation()-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
-
+console.log(daysRequired())
+console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
+console.log(Math.ceil(weeklyTimeCreation()))
 }
 
 

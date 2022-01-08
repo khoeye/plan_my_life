@@ -1,11 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PlannerCalendar from './PlannerComps/PlannerCalendar';
 import PlannerIntro from './PlannerComps/PlannerIntro';
 import { CSVLink } from 'react-csv';
 
 function PlannerPage (props){
+
+    const [eventData, setEventData] = useState([]
+    )
+
+    const saveEventDataHandler = (data) =>{
+        setEventData((prevState)=>{
+            return {
+                ...prevState,
+                data
+            };
+        });
+    };
 //Required fields include
 const csvData = [
+
     {
     Subject: 'Test Event 1 Name', 
     StartDate: '12/22/2021', 
@@ -145,7 +158,7 @@ const daysRequired = () =>{
         i = i + a[j]
         count++
       }
-    return count
+    return count-1
 
 
 }
@@ -174,10 +187,10 @@ const weeklyEventArrayCreator = () => {
         fridayObjectCreator(),
         saturdayObjectCreator()
     ]
-    let weeklyEventArray = weeklyEventArrayRaw.filter(function(x){
-        return x !== null; 
-    });
-    return (weeklyEventArray)
+    // let weeklyEventArray = weeklyEventArrayRaw.filter(function(x){
+    //     return x !== null; 
+    // });
+    return weeklyEventArrayRaw
 }
 
 //Creator functions to move th user's data into the object templat required for gmail events
@@ -304,6 +317,29 @@ const saturdayObjectCreator = () =>{
             Private:'', };
             return (saturdayObj)
     }
+}
+
+const weeklyObjectCreator = (weeklyEventArray, weeks, days, startDate) =>{
+    // Get the event based on what the user selected for the start date
+    const firstWeekObject = (weeklyEventArray.slice(startDate.getDay())).filter(function(x){
+        return x !== null; 
+        });
+
+    const cutWeeklyEventArray = weeklyEventArray.filter(function(x){
+        return x !== null; 
+        });
+    const eventObject = (dupeArray(cutWeeklyEventArray, weeks))
+    
+    for(let i=0;i>firstWeekObject.length;i++){
+        eventObject.unshift(firstWeekObject[i])
+    }    
+    return eventObject
+    
+//    let weeklyEventArray = weeklyEventArrayRaw.filter(function(x){
+    //     return x !== null; 
+    // });
+
+
 }
 
 //This function duplicates the weekly array to match closely with whats required to complete the task. I say closely because it may still be afew days off
@@ -578,7 +614,7 @@ const dayTransform = (date) =>{
 //StartDay we pass the transformed start date given by the user
 //arr we pass the weekly dif array created so we now how many days to add
 const generateFirstEventArr = (startDay,arr) =>{
-    let eventArr = [];
+    let eventArr = [dayTransform(testEventData.startDate)];
     let firstArr = arr.filter(x=>x>0)
     // Add first week depending on when the user selects as the start date
     for (let i=0; i < firstArr.length; i++) 
@@ -596,25 +632,36 @@ const generateEventArr = (days,week,startDate,startDif,fullDif) =>{
     for (let i=0; i < remainderDay; i++)
     startDif.push(new Date(startDate.setDate(startDate.getDate()+difFull[i])))
     return startDif
-    // firstDif.push(new Date(firstDif.reverse()[1].setDate(firstDif.reverse()[1].getDate()+firstDif.filter(x=>x>0)))
-    // return eventArr
 }
-// const calendarGeneration = () =>{
-//     let userInputArr = []
-//     if(Number.isInteger(weeklyTimeCreation())){
-//         for (let i = 1; i <= (weeklyTimeCreation()*daysSelected()); i++) {
-//             userInputArr.push(eventTemplateObject)
-//         }
-//         return userInputArr
-//     } else { 
-//     }
+
+//Turn the JS Dates into the M/D/Y format required for the calnedar event
+const filterEventArr = (arr) => {
+    for (let i=0; i < arr.length; i++){
+    let date = arr[i].getDate();
+    let month = arr[i].getMonth() + 1;
+    let year = arr[i].getFullYear();
+    arr[i] = `${month}/${date}/${year}`;
+    }
+    const result = arr
+    return result
+}
+//Last thing to do is to merge the Array of Objects and array of Dates 
+
+// const objectArrayCombine = (eventObject,dateArray) =>{
+//     for(let i=0; i < dateArray.length; i++)
+    
 // }
+
 const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
+const generateAllDateEvents = generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek()))
+const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),weeklyTimeCreation(),daysRequired(),dayTransform(testEventData.startDate))
+
 const consoleLog = () =>{
-console.log(dayTransform(testEventData.startDate))
 console.log(daysRequired())
-console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
-console.log(Math.ceil(weeklyTimeCreation()))
+console.log(weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(testEventData.startDate)))
+// console.log(generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())))
+// console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
+console.log(filterEventArr(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek()))))
 }
 
 

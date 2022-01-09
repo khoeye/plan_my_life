@@ -5,16 +5,15 @@ import { CSVLink } from 'react-csv';
 
 function PlannerPage (props){
 
-    const [eventData, setEventData] = useState([]
+    const [eventData, setEventData] = useState([
+
+    ]
     )
 
-    const saveEventDataHandler = (data) =>{
-        setEventData((prevState)=>{
-            return {
-                ...prevState,
-                data
-            };
-        });
+    const saveEventDataHandler = (data,key,) =>{
+        for(let i=0; i < eventData.length;i++){
+        }
+
     };
 //Required fields include
 const csvData = [
@@ -67,6 +66,10 @@ const testEventData = {
     linkForEvent: "https://www.bungie.net/",
     startDate: "2022-01-03"
 }
+
+
+
+//Get the how many hours are being spent everyday
 const mondayTime = (et,st) =>{
     if (et==="" && st===""){
         return 0
@@ -332,13 +335,12 @@ const weeklyObjectCreator = (weeklyEventArray, weeks, days, startDate) =>{
     
     for(let i=0;i>firstWeekObject.length;i++){
         eventObject.unshift(firstWeekObject[i])
-    }    
+    }
+    let idArr =[]
+    for(let i=0;i>eventObject.length;i++){
+        idArr.push({id:i})
+    }
     return eventObject
-    
-//    let weeklyEventArray = weeklyEventArrayRaw.filter(function(x){
-    //     return x !== null; 
-    // });
-
 
 }
 
@@ -647,21 +649,33 @@ const filterEventArr = (arr) => {
 }
 //Last thing to do is to merge the Array of Objects and array of Dates 
 
-// const objectArrayCombine = (eventObject,dateArray) =>{
-//     for(let i=0; i < dateArray.length; i++)
+const objectArrayCombine = (dateArray,eventObject) =>{
+    for(let i=0; i < dateArray.length; i++){
+    eventObject[i].startDate.startDate = dateArray[i]
+    eventObject[i].startDate.EndDate = dateArray[i]
+    }
+    return eventObject
+}
+
+const mapObjectToState = (obj,arr) =>{
+
+    setEventData(obj)
     
-// }
+    arr.forEach(element => {
+        saveEventDataHandler(element)
+    })
+}
 
 const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
 const generateAllDateEvents = generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek()))
-const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),weeklyTimeCreation(),daysRequired(),dayTransform(testEventData.startDate))
+const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(testEventData.startDate))
 
 const consoleLog = () =>{
-console.log(daysRequired())
-console.log(weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(testEventData.startDate)))
+console.log(mapObjectToState(generateAllObjectEvents,generateAllDateEvents))
+console.log(eventData.map)
 // console.log(generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())))
 // console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
-console.log(filterEventArr(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek()))))
+// console.log(objectArrayCombine(generateAllDateEvents, generateAllObjectEvents))
 }
 
 

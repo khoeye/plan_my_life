@@ -694,7 +694,7 @@ console.log(objectArrayCombine(generateAllDateEvents,generateAllObjectEvents))
     return (
         <div>
       <button onClick={consoleLog}>Run console log test</button>
-      <CSVLink data={csvData}>Download CSV</CSVLink>
+      <CSVLink data={eventData}>Download CSV</CSVLink>
       <PlannerIntro/>
       <PlannerCalendar/>
       </div>

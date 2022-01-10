@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { List } from 'immutable';
+
 import PlannerCalendar from './PlannerComps/PlannerCalendar';
 import PlannerIntro from './PlannerComps/PlannerIntro';
 import { CSVLink } from 'react-csv';
@@ -10,12 +12,6 @@ function PlannerPage (props){
     ]
     )
 
-    const saveEventDataHandler = (data,key,) =>{
-        for(let i=0; i < eventData.length;i++){
-        }
-
-    };
-//Required fields include
 const csvData = [
 
     {
@@ -336,13 +332,17 @@ const weeklyObjectCreator = (weeklyEventArray, weeks, days, startDate) =>{
     for(let i=0;i>firstWeekObject.length;i++){
         eventObject.unshift(firstWeekObject[i])
     }
-    let idArr =[]
-    for(let i=0;i>eventObject.length;i++){
-        idArr.push({id:i})
-    }
-    return eventObject
+
+    return eventObject 
 
 }
+
+// const addId = (arr) =>{
+//     for(let i=0; i < arr.length; i++){
+//         arr[i].id = i+1
+// }
+// return arr
+// }
 
 //This function duplicates the weekly array to match closely with whats required to complete the task. I say closely because it may still be afew days off
 const dupeArray = (arr, times) => [].concat(...Array.from({
@@ -650,29 +650,39 @@ const filterEventArr = (arr) => {
 //Last thing to do is to merge the Array of Objects and array of Dates 
 
 const objectArrayCombine = (dateArray,eventObject) =>{
-    for(let i=0; i < dateArray.length; i++){
-    eventObject[i].startDate.startDate = dateArray[i]
-    eventObject[i].startDate.EndDate = dateArray[i]
-    }
-    return eventObject
-}
-
-const mapObjectToState = (obj,arr) =>{
-
-    setEventData(obj)
+    const result = [];
+    for(let i=0; i < dateArray.length; i++){ 
+        result.push({
+            Subject: testEventData.eventName, 
+            StartDate: dateArray[i], 
+            StartTime: eventObject[i].StartTime, 
+            EndDate: dateArray[i], 
+            EndTime:eventObject[i].EndTime, 
+            AllDayEvent: false, 
+            Description:'', 
+            Location: testEventData.linkForEvent, 
+            Private:'', })
+        }
     
-    arr.forEach(element => {
-        saveEventDataHandler(element)
-    })
+    setEventData(result)
 }
+
+// const mapObjectToState = (obj,arr) =>{
+//     const list1 = List(obj)
+//     for(let i=0; i < obj.length;i++){
+//             list1.setIn([i,'StartDate'], arr[i])
+//     }
+//         // setEventData(list1.setIn([1,'StartDate'], arr[1]))
+
+// }
 
 const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
-const generateAllDateEvents = generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek()))
+const generateAllDateEvents = filterEventArr(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
 const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(testEventData.startDate))
 
 const consoleLog = () =>{
-console.log(mapObjectToState(generateAllObjectEvents,generateAllDateEvents))
-console.log(eventData.map)
+// console.log(mapObjectToState(generateAllObjectEvents,generateAllDateEvents))
+console.log(objectArrayCombine(generateAllDateEvents,generateAllObjectEvents))
 // console.log(generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())))
 // console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
 // console.log(objectArrayCombine(generateAllDateEvents, generateAllObjectEvents))

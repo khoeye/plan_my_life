@@ -125,15 +125,15 @@ const sundayTime = (et,st) =>{
 //Get the total hours spent in a week and divide by the hours required for completion. Output is how many weeks the project will take
 const weeklyTimeCreation = () =>{
     return (
-        testEventData.hoursRequired /  
+        props.userDataProp.hoursRequired /  
         (
-    sundayTime(testEventData.timeFrame.endTimes.sundayEnd,testEventData.timeFrame.startTimes.sundayStart)+
-    mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart)+
-    tuesdayTime(testEventData.timeFrame.endTimes.tuesdayEnd,testEventData.timeFrame.startTimes.tuesdayStart)+
-    wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart)+
-    thursdayTime(testEventData.timeFrame.endTimes.thursdayEnd,testEventData.timeFrame.startTimes.thursdayStart)+
-    fridayTime(testEventData.timeFrame.endTimes.fridayEnd,testEventData.timeFrame.startTimes.fridayStart)+
-    saturdayTime(testEventData.timeFrame.endTimes.saturdayEnd,testEventData.timeFrame.startTimes.saturdayStart)
+    sundayTime(props.userDataProp.timeFrame.endTimes.sundayEnd,props.userDataProp.timeFrame.startTimes.sundayStart)+
+    mondayTime(props.userDataProp.timeFrame.endTimes.mondayEnd,props.userDataProp.timeFrame.startTimes.mondayStart)+
+    tuesdayTime(props.userDataProp.timeFrame.endTimes.tuesdayEnd,props.userDataProp.timeFrame.startTimes.tuesdayStart)+
+    wednesdayTime(props.userDataProp.timeFrame.endTimes.wednesdayEnd,props.userDataProp.timeFrame.startTimes.wednesdayStart)+
+    thursdayTime(props.userDataProp.timeFrame.endTimes.thursdayEnd,props.userDataProp.timeFrame.startTimes.thursdayStart)+
+    fridayTime(props.userDataProp.timeFrame.endTimes.fridayEnd,props.userDataProp.timeFrame.startTimes.fridayStart)+
+    saturdayTime(props.userDataProp.timeFrame.endTimes.saturdayEnd,props.userDataProp.timeFrame.startTimes.saturdayStart)
    )
     )
 }
@@ -141,19 +141,19 @@ const weeklyTimeCreation = () =>{
 //This function returns the amount of working days the user will need to put in to complete the task. It is still linked to the week function shown above
 const daysRequired = () =>{
     const a = dupeArray([
-    sundayTime(testEventData.timeFrame.endTimes.sundayEnd,testEventData.timeFrame.startTimes.sundayStart),
-    mondayTime(testEventData.timeFrame.endTimes.mondayEnd,testEventData.timeFrame.startTimes.mondayStart),
-    tuesdayTime(testEventData.timeFrame.endTimes.tuesdayEnd,testEventData.timeFrame.startTimes.tuesdayStart),
-    wednesdayTime(testEventData.timeFrame.endTimes.wednesdayEnd,testEventData.timeFrame.startTimes.wednesdayStart),
-    thursdayTime(testEventData.timeFrame.endTimes.thursdayEnd,testEventData.timeFrame.startTimes.thursdayStart),
-    fridayTime(testEventData.timeFrame.endTimes.fridayEnd,testEventData.timeFrame.startTimes.fridayStart),
-    saturdayTime(testEventData.timeFrame.endTimes.saturdayEnd,testEventData.timeFrame.startTimes.saturdayStart)
+    sundayTime(props.userDataProp.timeFrame.endTimes.sundayEnd,props.userDataProp.timeFrame.startTimes.sundayStart),
+    mondayTime(props.userDataProp.timeFrame.endTimes.mondayEnd,props.userDataProp.timeFrame.startTimes.mondayStart),
+    tuesdayTime(props.userDataProp.timeFrame.endTimes.tuesdayEnd,props.userDataProp.timeFrame.startTimes.tuesdayStart),
+    wednesdayTime(props.userDataProp.timeFrame.endTimes.wednesdayEnd,props.userDataProp.timeFrame.startTimes.wednesdayStart),
+    thursdayTime(props.userDataProp.timeFrame.endTimes.thursdayEnd,props.userDataProp.timeFrame.startTimes.thursdayStart),
+    fridayTime(props.userDataProp.timeFrame.endTimes.fridayEnd,props.userDataProp.timeFrame.startTimes.fridayStart),
+    saturdayTime(props.userDataProp.timeFrame.endTimes.saturdayEnd,props.userDataProp.timeFrame.startTimes.saturdayStart)
     ].filter(x=>x>0),Math.ceil(weeklyTimeCreation()));
     
 
     let j = 0
     let count = 0
-    for(let i=0; i<=testEventData.hoursRequired; j++) {
+    for(let i=0; i<=props.userDataProp.hoursRequired; j++) {
         i = i + a[j]
         count++
       }
@@ -194,125 +194,125 @@ const weeklyEventArrayCreator = () => {
 
 //Creator functions to move th user's data into the object templat required for gmail events
 const sundayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusSunday === false) {
+    if (props.userDataProp.whatDays.checkedStatusSunday === false) {
         return null
     }else{
         let sundayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.sundayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.sundayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.sundayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.sundayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (sundayObj)
     }
 }
 
 const mondayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusMonday === false) {
+    if (props.userDataProp.whatDays.checkedStatusMonday === false) {
         return null
     }else{
         let mondayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.mondayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.mondayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.mondayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.mondayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (mondayObj)
     }
 }
 const tuesdayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusTuesday === false) {
+    if (props.userDataProp.whatDays.checkedStatusTuesday === false) {
         return null
     }else{
         let tuesdayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.tuesdayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.tuesdayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.tuesdayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.tuesdayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (tuesdayObj)
     }
 }
 
 const wednesdayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusWednesday === false) {
+    if (props.userDataProp.whatDays.checkedStatusWednesday === false) {
         return null
     }else{
         let wednesdayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.wednesdayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.wednesdayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.wednesdayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.wednesdayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (wednesdayObj)
     }
 }
 
 const thursdayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusThursday === false) {
+    if (props.userDataProp.whatDays.checkedStatusThursday === false) {
         return null
     }else{
         let thursdayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.thursdayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.thursdayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.thursdayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.thursdayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (thursdayObj)
     }
 }
 
 const fridayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusFriday === false) {
+    if (props.userDataProp.whatDays.checkedStatusFriday === false) {
         return null
     }else{
         let fridayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.fridayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.fridayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.fridayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.fridayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (fridayObj)
     }
 }
 
 const saturdayObjectCreator = () =>{
-    if (testEventData.whatDays.checkedStatusSaturday === false) {
+    if (props.userDataProp.whatDays.checkedStatusSaturday === false) {
         return null
     }else{
         let saturdayObj={
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: '', 
-            StartTime: testEventData.timeFrame.startTimes.saturdayStart, 
+            StartTime: props.userDataProp.timeFrame.startTimes.saturdayStart, 
             EndDate: '', 
-            EndTime: testEventData.timeFrame.endTimes.saturdayEnd, 
+            EndTime: props.userDataProp.timeFrame.endTimes.saturdayEnd, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', };
             return (saturdayObj)
     }
@@ -337,12 +337,6 @@ const weeklyObjectCreator = (weeklyEventArray, weeks, days, startDate) =>{
 
 }
 
-// const addId = (arr) =>{
-//     for(let i=0; i < arr.length; i++){
-//         arr[i].id = i+1
-// }
-// return arr
-// }
 
 //This function duplicates the weekly array to match closely with whats required to complete the task. I say closely because it may still be afew days off
 const dupeArray = (arr, times) => [].concat(...Array.from({
@@ -362,7 +356,7 @@ const dupeArray = (arr, times) => [].concat(...Array.from({
 // This assigns a number (base 1) to a counter variable based on the users selection. This will be used to determin the range between the days entered.
 let sundayCounter = ''
 const sundayAssign = () => {
-    if (testEventData.whatDays.checkedStatusSunday === false) {
+    if (props.userDataProp.whatDays.checkedStatusSunday === false) {
         return sundayCounter = 0 
     } else {
         return sundayCounter = 1
@@ -371,7 +365,7 @@ const sundayAssign = () => {
 
 let mondayCounter = ''
 const mondayAssign = () => {
-    if (testEventData.whatDays.checkedStatusMonday === false) {
+    if (props.userDataProp.whatDays.checkedStatusMonday === false) {
         return mondayCounter = 0 
     } else {
         return mondayCounter = 2
@@ -380,7 +374,7 @@ const mondayAssign = () => {
 
 let tuesdayCounter = ''
 const tuesdayAssign = () => {
-    if (testEventData.whatDays.checkedStatusTuesday === false) {
+    if (props.userDataProp.whatDays.checkedStatusTuesday === false) {
         return tuesdayCounter = 0 
     } else {
         return tuesdayCounter = 3
@@ -389,7 +383,7 @@ const tuesdayAssign = () => {
 
 let wednesdayCounter = ''
 const wednesdayAssign = () => {
-    if (testEventData.whatDays.checkedStatusWednesday === false) {
+    if (props.userDataProp.whatDays.checkedStatusWednesday === false) {
         return wednesdayCounter = 0 
     } else {
         return wednesdayCounter = 4
@@ -398,7 +392,7 @@ const wednesdayAssign = () => {
 
 let thursdayCounter = ''
 const thursdayAssign = () => {
-    if (testEventData.whatDays.checkedStatusThursday === false) {
+    if (props.userDataProp.whatDays.checkedStatusThursday === false) {
         return thursdayCounter = 0 
     } else {
         return thursdayCounter = 5
@@ -407,7 +401,7 @@ const thursdayAssign = () => {
 
 let fridayCounter = ''
 const fridayAssign = () => {
-    if (testEventData.whatDays.checkedStatusFriday === false) {
+    if (props.userDataProp.whatDays.checkedStatusFriday === false) {
         return fridayCounter = 0 
     } else {
         return fridayCounter = 6
@@ -416,14 +410,14 @@ const fridayAssign = () => {
 
 let saturdayCounter = ''
 const saturdayAssign = () => {
-    if (testEventData.whatDays.checkedStatusSaturday === false) {
+    if (props.userDataProp.whatDays.checkedStatusSaturday === false) {
         return saturdayCounter = 0 
     } else {
         return saturdayCounter = 7
     }
 }
 
-//Function to run all of them at once
+//Function to run all of them at once: returns undefined which should be FIXED
 const getAllCounters = () => {
     sundayAssign()
     mondayAssign()
@@ -531,42 +525,42 @@ const getDifSaturday = () =>{
 }
 
 const getFirstDay = () => {
-    if (testEventData.whatDays.checkedStatusSunday===true){
+    if (props.userDataProp.whatDays.checkedStatusSunday===true){
         return 8
-    } else if (testEventData.whatDays.checkedStatusMonday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusMonday===true){
         return 9
-    } else if (testEventData.whatDays.checkedStatusTuesday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusTuesday===true){
         return 10
-    } else if (testEventData.whatDays.checkedStatusWednesday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusWednesday===true){
         return 11
-    } else if (testEventData.whatDays.checkedStatusThursday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusThursday===true){
         return 12
-    } else if (testEventData.whatDays.checkedStatusFriday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusFriday===true){
         return 13
-    } else if (testEventData.whatDays.checkedStatusSaturday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusSaturday===true){
         return 14
     }
 }
 
 const getLastDay = () => {
-    if (testEventData.whatDays.checkedStatusSaturday===true){
+    if (props.userDataProp.whatDays.checkedStatusSaturday===true){
         return 7
-    } else if (testEventData.whatDays.checkedStatusFriday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusFriday===true){
         return 6
-    } else if (testEventData.whatDays.checkedStatusThursday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusThursday===true){
         return 5
-    } else if (testEventData.whatDays.checkedStatusWednesday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusWednesday===true){
         return 4
-    } else if (testEventData.whatDays.checkedStatusTuesday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusTuesday===true){
         return 3
-    } else if (testEventData.whatDays.checkedStatusMonday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusMonday===true){
         return 2
-    } else if (testEventData.whatDays.checkedStatusSunday===true){
+    } else if (props.userDataProp.whatDays.checkedStatusSunday===true){
         return 1
     }
 }
 
-//Get difference between first day and last day 
+//Get difference between first day and last day. Used Aug 2021 as the month because day 1 is a sunday so it makes the math nicer
 const getFisrtLastDif = (first, last) =>{  
     const date1 = new Date(`08/${last}/2021`);
     const date2 = new Date(`08/${first}/2021`);
@@ -598,9 +592,6 @@ const getDifForWeek = () =>{
         (getFisrtLastDif(getFirstDay(),getLastDay()))
    
     ];
-//    const filter = weekDifArr.filter(function(number){
-//         return number > 0
-//     })
 }
 
 //Four
@@ -616,7 +607,7 @@ const dayTransform = (date) =>{
 //StartDay we pass the transformed start date given by the user
 //arr we pass the weekly dif array created so we now how many days to add
 const generateFirstEventArr = (startDay,arr) =>{
-    let eventArr = [dayTransform(testEventData.startDate)];
+    let eventArr = [dayTransform(props.userDataProp.startDate)];
     let firstArr = arr.filter(x=>x>0)
     // Add first week depending on when the user selects as the start date
     for (let i=0; i < firstArr.length; i++) 
@@ -653,39 +644,33 @@ const objectArrayCombine = (dateArray,eventObject) =>{
     const result = [];
     for(let i=0; i < dateArray.length; i++){ 
         result.push({
-            Subject: testEventData.eventName, 
+            Subject: props.userDataProp.eventName, 
             StartDate: dateArray[i], 
             StartTime: eventObject[i].StartTime, 
             EndDate: dateArray[i], 
             EndTime:eventObject[i].EndTime, 
             AllDayEvent: false, 
             Description:'', 
-            Location: testEventData.linkForEvent, 
+            Location: props.userDataProp.linkForEvent, 
             Private:'', })
         }
     
     setEventData(result)
 }
 
-// const mapObjectToState = (obj,arr) =>{
-//     const list1 = List(obj)
-//     for(let i=0; i < obj.length;i++){
-//             list1.setIn([i,'StartDate'], arr[i])
-//     }
-//         // setEventData(list1.setIn([1,'StartDate'], arr[1]))
 
-// }
 
-const difForFirstWeek = generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay()))
-const generateAllDateEvents = filterEventArr(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
-const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(testEventData.startDate))
+const difForFirstWeek = generateFirstEventArr(dayTransform(props.userDataProp.startDate),getDifForWeek().slice(dayTransform(props.userDataProp.startDate).getDay()))
+const generateAllDateEvents = filterEventArr(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(props.userDataProp.startDate),getDifForWeek().slice(dayTransform(props.userDataProp.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
+const generateAllObjectEvents = weeklyObjectCreator(weeklyEventArrayCreator(),Math.ceil(weeklyTimeCreation()),daysRequired(),dayTransform(props.userDataProp.startDate))
 
 const consoleLog = () =>{
-// console.log(mapObjectToState(generateAllObjectEvents,generateAllDateEvents))
-console.log(objectArrayCombine(generateAllDateEvents,generateAllObjectEvents))
-// console.log(generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())))
-// console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(testEventData.startDate),getDifForWeek().slice(dayTransform(testEventData.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
-// console.log(objectArrayCombine(generateAllDateEvents, generateAllObjectEvents))
+console.log(getDifForWeek())
+console.log(generateAllObjectEvents)
+console.log(setEventData(objectArrayCombine(generateAllDateEvents,generateAllObjectEvents)))
+console.log(generateFirstEventArr(dayTransform(props.userDataProp.startDate),getDifForWeek().slice(dayTransform(props.userDataProp.startDate).getDay())))
+console.log(generateEventArr(daysRequired(),Math.ceil(weeklyTimeCreation())-1,generateFirstEventArr(dayTransform(props.userDataProp.startDate),getDifForWeek().slice(dayTransform(props.userDataProp.startDate).getDay())).reverse()[0],difForFirstWeek,(getDifForWeek())))
+console.log(objectArrayCombine(generateAllDateEvents, generateAllObjectEvents))
 }
 
 

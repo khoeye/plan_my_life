@@ -24,18 +24,42 @@ const consoleTest = () =>{
   console.log(globalUserState)
 };
 
-const csvData = [
-  {
-  Subject: "Test Event 1 Name", 
-  StartDate: "12/22/2021", 
-  StartTime:"11:00 AM", 
-  EndDate:"12/22/2021", 
-  EndTime:"3:00 AM", 
-  AllDayEvent:"false", 
-  Description:"This is a test of the description", 
-  Location:'https://www.google.com/', 
-  Private:"False" }
-    ];
+const testData = {
+    "learnWhat": "",
+    "eventName": "Test Name",
+    "hoursRequired": "70",
+    "whatDays": {
+      "checkedStatusMonday": false,
+      "checkedStatusTuesday": false,
+      "checkedStatusWednesday": true,
+      "checkedStatusThursday": true,
+      "checkedStatusFriday": false,
+      "checkedStatusSaturday": true,
+      "checkedStatusSunday": false
+    },
+    "timeFrame": {
+      "startTimes": {
+        "sundayStart": "",
+        "mondayStart": "",
+        "tuesdayStart": "",
+        "wednesdayStart": "13:00",
+        "thursdayStart": "13:00",
+        "fridayStart": "",
+        "saturdayStart": "13:00"
+      },
+      "endTimes": {
+        "sundayEnd": "",
+        "mondayEnd": "",
+        "tuesdayEnd": "",
+        "wednesdayEnd": "15:00",
+        "thursdayEnd": "16:00",
+        "fridayEnd": "",
+        "saturdayEnd": "18:00"
+      }
+    },
+    "linkForEvent": "https://www.google.com/",
+    "startDate": "2022-01-17"
+  }
 
 
   return (

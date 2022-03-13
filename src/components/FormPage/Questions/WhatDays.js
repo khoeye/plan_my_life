@@ -92,31 +92,33 @@ const WhatDays = (props) =>{
 
 
 return (
-<div>
-<label>What days would you like to work on this?</label>
-                <ul>
-                    <li>
-                        Monday <input type="checkbox" id="checkMonday" name="Monday" onChange={mondayChangeHandler}/>
-                    </li>
-                    <li>
-                        Tuesday <input type="checkbox" id="checkTuesday" onChange={tuesdayChangeHandler}/>
-                    </li>
-                    <li>
-                        Wednesday <input type="checkbox" id="checkWednesday" onChange={wednesdayChangeHandler}/>
-                    </li>
-                    <li>
-                        Thursday <input type="checkbox" id="checkThursday" onChange={thursdayChangeHandler}/>
-                    </li>
-                    <li>
-                        Friday <input type="checkbox" id="checkFriday" onChange={fridayChangeHandler}/>
-                    </li>
-                    <li>
-                        Saturday <input type="checkbox" id="checkSaturday" onChange={saturdayChangeHandler}/>
-                    </li>
-                    <li>
-                        Sunday <input type="checkbox" id="checkSunday" onChange={sundayChangeHandler}/>
-                    </li>
-                </ul>  
+<div className="container">
+    <div className="row">
+<h1 className="col">What days would you like to work on this?</h1>
+        </div>
+        <div className="row">
+                    <div className="col">
+                        <label>Monday</label><input type="checkbox" id="checkMonday" name="Monday" onChange={mondayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Tuesday</label><input type="checkbox" id="checkTuesday" onChange={tuesdayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Wednesday</label><input type="checkbox" id="checkWednesday" onChange={wednesdayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Thursday</label><input type="checkbox" id="checkThursday" onChange={thursdayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Friday</label> <input type="checkbox" id="checkFriday" onChange={fridayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Saturday</label><input type="checkbox" id="checkSaturday" onChange={saturdayChangeHandler}/>
+                    </div>
+                    <div className="col">
+                        <label>Sunday</label><input type="checkbox" id="checkSunday" onChange={sundayChangeHandler}/>
+                    </div>
+</div>
 </div>
 )
 };

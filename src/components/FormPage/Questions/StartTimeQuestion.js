@@ -96,7 +96,7 @@ const StartTimeQuestions = (props) => {
 
 
     return (
-    <div>
+    <React.Fragment>
         <td>
             Start<input type="time" id="startSunday" name="start time"onChange={sundayStartHandler}/>
         </td>
@@ -119,7 +119,7 @@ const StartTimeQuestions = (props) => {
             Start<input type="time" id="startSaturday" name="start time"onChange={saturdayStartHandler}/>
         </td>
 
-    </div>
+    </React.Fragment>
     )
 }
 

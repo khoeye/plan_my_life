@@ -93,7 +93,7 @@ const EndTimeQuestions = (props) => {
     
 
     return (
-    <div>
+    <React.Fragment>
         <td>
             End<input type="time" id="endSunday" name="end time"onChange={sundayEndHandler}/>
         </td>
@@ -116,7 +116,7 @@ const EndTimeQuestions = (props) => {
             End<input type="time" id="endSaturday" name="end time"onChange={saturdayEndHandler}/>
         </td>
 
-    </div>
+    </React.Fragment>
     )
 }
 

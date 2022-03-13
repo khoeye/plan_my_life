@@ -7,9 +7,13 @@ const HoursRequired = (props) =>{
     }
 
 return (
-<div>
-<label>How many hours will it take to complete this?</label>
-    <input type="number" id="totalTime" name="totalTime" onChange={hoursRequiredChangeHandler}/>
+<div className="container">
+    <div className="row">
+        <h1 className="col my-5">How many hours will it take to complete this?</h1>
+    </div>
+    <div className="row">
+            <input className="col-1 mx-auto" type="number" id="totalTime" name="totalTime" onChange={hoursRequiredChangeHandler}/>
+    </div>
 </div>
 )
 };

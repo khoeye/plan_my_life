@@ -21,4 +21,10 @@ const submitUserDataHandler = (enteredUserData) => {
     )
 }
 
+//This formula allows me to invoke functions from the conosole directly despite it being nested in react. Make sure that this removed before pushing 
+// function bradTest (){
+//     console.log('brad is awesome')
+// }
+// window.bradTest=bradTest;
+
 export default FormPage

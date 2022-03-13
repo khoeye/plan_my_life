@@ -39,22 +39,26 @@ const TimeFrame = (props) =>{
 return (
     <div>
   <label>What time frame would you like to work each day?</label>
-                   <table>
+                   <table className="table">
+                       <thead>
                        <tr>
-                           <th>Sunday</th>
-                           <th>Monday</th>
-                           <th>Tuesday</th>
-                           <th>Wednesday</th>
-                           <th>Thursday</th>
-                           <th>Friday</th>
-                           <th>Saturday</th>
+                           <th scope="col">Sunday</th>
+                           <th scope="col">Monday</th>
+                           <th scope="col">Tuesday</th>
+                           <th scope="col">Wednesday</th>
+                           <th scope="col">Thursday</th>
+                           <th scope="col">Friday</th>
+                           <th scope="col">Saturday</th>
                        </tr>
-                       <tr>
-                           <StartTimeQuestions onSaveStartTimeHandler={saveStartTimeHandler}/>
-                       </tr>
-                       <tr>
-                           <EndTimeQuestions onSaveEndTimeHandler={saveEndTimeHandler}/>
-                       </tr>
+                       </thead>
+                       <tbody>
+                            <tr>
+                                <StartTimeQuestions onSaveStartTimeHandler={saveStartTimeHandler}/>
+                            </tr>
+                            <tr>
+                                <EndTimeQuestions onSaveEndTimeHandler={saveEndTimeHandler}/>
+                            </tr>
+                       </tbody>
                    </table>
                     </div>
 )

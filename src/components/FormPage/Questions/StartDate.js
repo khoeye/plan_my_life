@@ -7,10 +7,14 @@ const StartDate= (props) =>{
     }
 
 return (
-    <div>
-        <p>When would you like this event to start?</p>
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" onChange={startDateHandler}></input>   
+    <div className="container">
+        <div className="row">
+                    <h1 className="col my-5">When would you like this event to start?</h1>
+        </div>
+        <div className="row">
+        <input className="col-3 mx-auto" type="date" id="startDate" name="startDate" onChange={startDateHandler}></input>   
+
+        </div>
     </div>
 )
 }
